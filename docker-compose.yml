@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./client/react
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - shared-network
+
+  server:
+    build:
+      context: ./nexus/
+      dockerfile: Dockerfile
+    ports:
+      - "7092:80"  # Expose the server on port 80 within the container
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    driver: bridge
